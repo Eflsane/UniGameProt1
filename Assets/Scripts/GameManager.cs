@@ -26,7 +26,9 @@ public class GameManager : MonoBehaviour
 
     public TMPro.TextMeshProUGUI scoreCounterText;
     public static float scoreCounter;
+    public float startScore;
     public static float income;
+    public float basicIncome;
     public static float scoreMultypler;
 
     // Start is called before the first frame update
@@ -39,8 +41,8 @@ public class GameManager : MonoBehaviour
 
         //__constructElemsUI = new ConstructElemUIController[constructElems.Length];
 
-        scoreCounter = 0f;
-        income = 1.0f;
+        scoreCounter = startScore;
+        income = basicIncome;
         scoreMultypler = 1.0f;
         scoreCounterText.text = "$ " + scoreCounter;
     }
