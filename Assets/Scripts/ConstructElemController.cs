@@ -26,41 +26,54 @@ public class ConstructElemController : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if(GameManager.isConstructMode)
+        if(isMoving)
         {
             Vector3 mousePos = Input.mousePosition;
             Ray castPoint = Camera.main.ScreenPointToRay(mousePos);
             RaycastHit hit;
-            if(Physics.Raycast(castPoint, out hit, Mathf.Infinity) && this == GameManager.currentElemSelected) 
+            if(Physics.Raycast(castPoint, out hit, Mathf.Infinity)) 
                 transform.position = new Vector3(hit.point.x, transform.position.y, hit.point.z);
         }
     }
 
     private void OnMouseDown()
     {
-        isMoving = true;
+        if (GameManager.isConstructMode && this == GameManager.currentElemSelected)
+        {
+            isMoving = true;
+            GameManager.gridElemCollide = GameManager.currentGridElemSelected;
+        }
+            
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(GameManager.isConstructMode)
+        if(isMoving)
         {
+            if(GameManager.gridElemCollide.installedObject != null)
+                GameManager.gridElemCollide.ChangeColor(GameManager.gridElemCollide.buildingBusyColor);
+            else GameManager.gridElemCollide.ChangeColor(GameManager.gridElemCollide.buildingOKColor);
+
             GridElemController ge = other.gameObject.GetComponent<GridElemController>();
-            GameManager.prevGridElemSelected = ge;
-            if (Input.GetMouseButtonUp(0) && GameManager.currentElemSelected.isMoving)
+            GameManager.gridElemCollide = ge;
+            ge.ChangeColor(Color.gray);
+            /*if (Input.GetMouseButtonUp(0) && GameManager.currentElemSelected.isMoving)
             {
                 
                 ge.TryPlaceItemWithDrag();
                 GameManager.currentElemSelected.isMoving = false;
-            }
+            }*/
         }
     }
 
     private void OnMouseUp()
     {
-        GameManager.prevGridElemSelected.TryPlaceItemWithDrag();
-        GameManager.currentElemSelected.isMoving = false;
-        GameManager.prevGridElemSelected = null;
+        if(isMoving)
+        {
+            GameManager.gridElemCollide.TryPlaceItemWithDrag();
+            GameManager.currentElemSelected.isMoving = false;
+            GameManager.gridElemCollide = null;
+        } 
     }
 
 }

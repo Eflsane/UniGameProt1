@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     public static ConstructElemController currentElemSelected;
     public static GridElemController currentGridElemSelected;
-    public static GridElemController prevGridElemSelected;
+    public static GridElemController gridElemCollide;
 
     public GameObject mainPanel;
     public GameObject constructPanel;
