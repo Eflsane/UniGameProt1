@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -12,8 +14,10 @@ public class GameManager : MonoBehaviour
     public static bool isColoringGrid = false;
     public static bool canPlace = false;
 
+    public ConstructElemController[] constructElem;
     public ConstructElemController[] constructElems = new ConstructElemController[1];
     public ConstructElemUIController[] __constructElemsUI;
+    Button but;
 
     public static ConstructElemController currentElemSelected;
     public static GridElemController currentGridElemSelected;
@@ -38,6 +42,13 @@ public class GameManager : MonoBehaviour
             instance = this;
         else if (instance == this)
             Destroy(gameObject);
+
+        constructElem = Resources.LoadAll<ConstructElemController>("ConstructElemsPrefabs/");
+        for(int i = 0; i < constructElem.Length; i++)
+        {
+            Debug.Log(i + constructElem[i].name);
+
+        }
 
         //__constructElemsUI = new ConstructElemUIController[constructElems.Length];
 
@@ -139,9 +150,19 @@ public class GameManager : MonoBehaviour
     {
         SwitchPlacingMode();
 
-        constructElems[0].transform.localScale = new Vector3(GrideController.firstElem.transform.localScale.x * 5, GrideController.firstElem.transform.localScale.y * 5, GrideController.firstElem.transform.localScale.z * 5);
+        constructElem[0].transform.localScale = new Vector3(GrideController.firstElem.transform.localScale.x * 5, GrideController.firstElem.transform.localScale.y * 5, GrideController.firstElem.transform.localScale.z * 5);
         currentGridElemSelected = GrideController.firstElem;
-        currentElemSelected = Instantiate(constructElems[0], new Vector3(currentGridElemSelected.transform.position.x, constructElems[0].gameObject.transform.localScale.y / 2, currentGridElemSelected.transform.position.z), currentGridElemSelected.transform.rotation);
+        currentElemSelected = Instantiate(constructElem[0], new Vector3(currentGridElemSelected.transform.position.x, constructElems[0].gameObject.transform.localScale.y / 2, currentGridElemSelected.transform.position.z), currentGridElemSelected.transform.rotation);
+        currentGridElemSelected.TryPlaceItem(false);
+    }
+
+    public void CreateConstructElem(int elemIndex)
+    {
+        SwitchPlacingMode();
+
+        constructElem[elemIndex].transform.localScale = new Vector3(GrideController.firstElem.transform.localScale.x * 5, GrideController.firstElem.transform.localScale.y * 5, GrideController.firstElem.transform.localScale.z * 5);
+        currentGridElemSelected = GrideController.firstElem;
+        currentElemSelected = Instantiate(constructElem[elemIndex], new Vector3(currentGridElemSelected.transform.position.x, constructElems[0].gameObject.transform.localScale.y / 2, currentGridElemSelected.transform.position.z), currentGridElemSelected.transform.rotation);
         currentGridElemSelected.TryPlaceItem(false);
     }
 }
