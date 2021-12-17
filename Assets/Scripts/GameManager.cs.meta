@@ -1,0 +1,33 @@
+fileFormatVersion: 2
+guid: 45227e4e9bfeac641aa2edd3791cc96a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - constructElemUIPrefab: {fileID: 1260711681195239861, guid: 5d29c5cbc7abe8744ab61ef92866229e,
+      type: 3}
+  - mainPanel: {instanceID: 0}
+  - constructPanel: {instanceID: 0}
+  - constructPanelElemContent: {instanceID: 0}
+  - placingItemPanel: {instanceID: 0}
+  - placeButton: {instanceID: 0}
+  - elemSelectedPanel: {instanceID: 0}
+  - selectedElemText: {instanceID: 0}
+  - elemUpgradeButton: {instanceID: 0}
+  - shopPanel: {instanceID: 0}
+  - booster2xButton: {instanceID: 0}
+  - booster3xButton: {instanceID: 0}
+  - boosterTime: {instanceID: 0}
+  - settingsPanel: {instanceID: 0}
+  - userNameText: {instanceID: 0}
+  - upgradeGridButton: {instanceID: 0}
+  - upgradeGridSlider: {instanceID: 0}
+  - upgradeGridText: {instanceID: 0}
+  - soundSlider: {instanceID: 0}
+  - scoreCounterText: {instanceID: 0}
+  - premMoneyText: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
