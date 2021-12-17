@@ -570,6 +570,7 @@ public class GameManager : MonoBehaviour
         if (boost == 3)
             premMoney -= 42;
         speed = boost;
+        premMoneyText.text = premMoney.ToString();
 
         boosterTimeLeft = new TimeSpan(0, 5, 0);
         boosterTimer = new Timer();
@@ -584,6 +585,7 @@ public class GameManager : MonoBehaviour
     public void BuyBooster(int boost, TimeSpan leftFromLastGame)
     {
         speed = boost;
+        premMoneyText.text = premMoney.ToString();
 
         boosterTimeLeft = new TimeSpan(leftFromLastGame.Ticks);
         boosterTimer = new Timer();
