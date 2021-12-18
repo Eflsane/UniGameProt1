@@ -375,7 +375,11 @@ public class GameManager : MonoBehaviour
             ConstructElemUIController cUI = Instantiate(constructElemUIPrefab, constructElemUIPrefab.transform);
             cUI.elemIndex = i;
             if(constructElemsPrefabs[i].elemImage != null)
+            {
                 cUI.image = constructElemsPrefabs[i].elemImage;
+                cUI.GetComponent<Image>().sprite = cUI.image;
+            }
+                
             cUI.elemName.text = constructElemsParamsKeepers[i].elemName;
             cUI.name = constructElemsParamsKeepers[i].elemName;
             cUI.price.text = constructElemsParamsKeepers[i].price.ToString();
@@ -503,9 +507,7 @@ public class GameManager : MonoBehaviour
             constructElemsParamsKeepers[i].PriceUpgrade(0);
         }
 
-        UpdateConstructElemsUI(true);
-
-        
+        UpdateConstructElemsUI(true); 
     }
 
     //for loading grid
