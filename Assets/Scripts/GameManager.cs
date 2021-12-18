@@ -377,7 +377,7 @@ public class GameManager : MonoBehaviour
             if(constructElemsPrefabs[i].elemImage != null)
             {
                 cUI.image = constructElemsPrefabs[i].elemImage;
-                cUI.GetComponent<Image>().sprite = cUI.image;
+                cUI.GetComponentInChildren<Image>().sprite = cUI.image;
             }
                 
             cUI.elemName.text = constructElemsParamsKeepers[i].elemName;
