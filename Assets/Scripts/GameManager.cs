@@ -374,7 +374,10 @@ public class GameManager : MonoBehaviour
         {
             ConstructElemUIController cUI = Instantiate(constructElemUIPrefab, constructElemUIPrefab.transform);
             cUI.elemIndex = i;
+
             if (constructElemsPrefabs[i].elemImage != null)
+
+            if(constructElemsPrefabs[i].elemImage != null)
             {
                 cUI.image = constructElemsPrefabs[i].elemImage;
                 cUI.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = cUI.image;
@@ -507,7 +510,11 @@ public class GameManager : MonoBehaviour
             constructElemsParamsKeepers[i].PriceUpgrade(0);
         }
 
+
         UpdateConstructElemsUI(true);
+
+        UpdateConstructElemsUI(true); 
+
     }
 
     //for loading grid
@@ -572,7 +579,11 @@ public class GameManager : MonoBehaviour
         if (boost == 3)
             premMoney -= 42;
         speed = boost;
+
         premMoneyText.text = premMoney.ToString() + "G";
+
+        premMoneyText.text = premMoney.ToString();
+
 
         boosterTimeLeft = new TimeSpan(0, 5, 0);
         boosterTimer = new Timer();
@@ -587,7 +598,11 @@ public class GameManager : MonoBehaviour
     public void BuyBooster(int boost, TimeSpan leftFromLastGame)
     {
         speed = boost;
+
         premMoneyText.text = premMoney.ToString() + "G";
+
+        premMoneyText.text = premMoney.ToString();
+
 
         boosterTimeLeft = new TimeSpan(leftFromLastGame.Ticks);
         boosterTimer = new Timer();
