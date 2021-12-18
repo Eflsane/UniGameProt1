@@ -43,10 +43,7 @@ public class GrideController : MonoBehaviour
         //CreateGrid();
         CreateGridWithParams(startGridSize);
 
-        baseColor = Color.white;
-        buildingOKColor = Color.green;
-        buildingBusyColor = Color.red;
-        buildingCollisColor = Color.yellow;
+        
 
         ColorizeAllGrid(baseColor);
     }

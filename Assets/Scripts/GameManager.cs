@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     public GameObject constructPanel;
     public GameObject constructPanelElemContent;
     public GameObject placingItemPanel;
-    public GameObject placeButton;   
+    public GameObject placeButton;
     public GameObject elemSelectedPanel;
     public TextMeshProUGUI selectedElemText;
     public GameObject elemUpgradeButton;
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
 
         audioSource = GetComponent<AudioSource>();
 
-        
+
 
         /*for(int i = 0; i < constructElem.Length; i++)
         {
@@ -112,14 +112,14 @@ public class GameManager : MonoBehaviour
         income = startIncome;
         scoreToUpgradeGridTotal = scoreToUpgradeGridBasic;
         speed = 1.0f;
-        scoreCounterText.text = "$ " + scoreCounter;
+        scoreCounterText.text = "$" + scoreCounter;
 
         gridLevel = 1;
 
 
         LoadPlayerPrefs();
-        userNameText.text = userName; 
-        
+        userNameText.text = userName;
+
         UpgradeGridSet();
         UpdateConstructElemsUI(true);
     }
@@ -127,7 +127,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreCounterText.text = "$ " + string.Format("{0:0.0}", scoreCounter);
+        scoreCounterText.text = "$" + string.Format("{0:0.0}", scoreCounter);
         scoreCounter += income * speed * Time.deltaTime;
 
         ActivateConstructUIElems();
@@ -146,7 +146,7 @@ public class GameManager : MonoBehaviour
         constructElemsPrefabs = Resources.LoadAll<ConstructElemController>("ConstructElemsPrefabs/");
 
         constructElemsParamsKeepers = new ConstructElemController[constructElemsPrefabs.Length];
-        for(int i = 0; i < constructElemsPrefabs.Length; i++)
+        for (int i = 0; i < constructElemsPrefabs.Length; i++)
         {
             ConstructElemController elem = Instantiate(constructElemParamsKeeperPrefab);
             elem.elemName = constructElemsPrefabs[i].elemName;
@@ -168,7 +168,7 @@ public class GameManager : MonoBehaviour
 
     private void LoadPlayerPrefs()
     {
-        if(PlayerPrefs.HasKey(soundVolumePref))
+        if (PlayerPrefs.HasKey(soundVolumePref))
             ChangeSoundVolume(PlayerPrefs.GetFloat(soundVolumePref), true);
 
         if (PlayerPrefs.HasKey(userNamePref))
@@ -178,8 +178,8 @@ public class GameManager : MonoBehaviour
         if (PlayerPrefs.HasKey(userParamsPref))
         {
             userParams = JsonUtility.FromJson<UserParams>(PlayerPrefs.GetString(userParamsPref));
-            
-            
+
+
             UpgradeGrid(userParams.gridLevel);
             income = userParams.income;
             premMoney = userParams.premMoney;
@@ -218,7 +218,7 @@ public class GameManager : MonoBehaviour
             boosterTimeLeft = speedBoosterWorkingTimeLeft;
 
             BuyBooster((int)speed, speedBoosterWorkingTimeLeft - timeFromLastPlay);
-        }     
+        }
     }
 
     public void SwitchConstructionMode(bool state)
@@ -268,7 +268,7 @@ public class GameManager : MonoBehaviour
         isPlacingMode = state;
         placingItemPanel.SetActive(state);
 
-        if(state)
+        if (state)
             GrideController.instance.ColorizeAllGrid(GrideController.instance.buildingOKColor);
         else
             GrideController.instance.ColorizeAllGrid(GrideController.instance.baseColor);
@@ -279,13 +279,13 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        
-        constructPanel.SetActive(!state);      
+
+        constructPanel.SetActive(!state);
     }
 
     public void CancelPlacing()
     {
-        if(!isConstructElemSelectionMode)
+        if (!isConstructElemSelectionMode)
         {
             if (currentElemSelected.Equals(currentGridElemSelected.installedObject))
                 currentGridElemSelected.ChangeColor(GrideController.instance.buildingOKColor);
@@ -295,7 +295,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        
+
         currentGridElemSelected = currentElemSelected.gridElemPlaced;
         currentGridElemSelected.TryPlaceItem(false);
 
@@ -304,14 +304,14 @@ public class GameManager : MonoBehaviour
 
     public void FinishPlacingItemOnGrid()
     {
-        if(!isConstructElemSelectionMode)
+        if (!isConstructElemSelectionMode)
         {
             ConstructElemController elem = constructElemsParamsKeepers.Where<ConstructElemController>(x => x.elemName == currentElemSelected.elemName).ToArray()[0];
             income += currentElemSelected.totalIncomeAscending;
             scoreCounter -= elem.totalPrice;
             currentElemSelected.gridElemPlaced = currentGridElemSelected;
 
-            
+
             elem.PriceUpgrade();
             UpdateConstructElemsUI();
 
@@ -331,15 +331,15 @@ public class GameManager : MonoBehaviour
         ConstructElemController elem = constructElemsParamsKeepers.Where<ConstructElemController>(x => x.elemName == currentElemSelected.elemName).ToArray()[0];
         ConstructElemUIController elemUI = constructPanelElemContent.GetComponentsInChildren<ConstructElemUIController>().Where<ConstructElemUIController>(x => x.elemName.text == currentElemSelected.elemName).ToArray()[0];
 
-        elemUI.price.text = elem.totalPrice.ToString();
+        elemUI.price.text = "$" + elem.totalPrice.ToString();
     }
 
     public void UpdateConstructElemsUI(bool isLoading)
     {
 
-        for(int i = 0; i < constructElemsParamsKeepers.Length; i++)
+        for (int i = 0; i < constructElemsParamsKeepers.Length; i++)
         {
-            constructPanelElemContent.GetComponentsInChildren<ConstructElemUIController>()[i].price.text = constructElemsParamsKeepers[i].totalPrice.ToString();
+            constructPanelElemContent.GetComponentsInChildren<ConstructElemUIController>()[i].price.text = "$" + constructElemsParamsKeepers[i].totalPrice.ToString();
         }
     }
 
@@ -370,12 +370,16 @@ public class GameManager : MonoBehaviour
 
     public void CreateConstructionElemsUI()
     {
-        for(int i = 0; i < constructElemsParamsKeepers.Length; i++)
+        for (int i = 0; i < constructElemsParamsKeepers.Length; i++)
         {
             ConstructElemUIController cUI = Instantiate(constructElemUIPrefab, constructElemUIPrefab.transform);
             cUI.elemIndex = i;
-            if(constructElemsPrefabs[i].elemImage != null)
+            if (constructElemsPrefabs[i].elemImage != null)
+            {
                 cUI.image = constructElemsPrefabs[i].elemImage;
+                cUI.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = cUI.image;
+            }
+
             cUI.elemName.text = constructElemsParamsKeepers[i].elemName;
             cUI.name = constructElemsParamsKeepers[i].elemName;
             cUI.price.text = constructElemsParamsKeepers[i].price.ToString();
@@ -447,15 +451,15 @@ public class GameManager : MonoBehaviour
     {
         income -= currentElemSelected.totalIncomeAscending;
 
-        ConstructElemController elem = constructElemsPrefabs.Where<ConstructElemController>(x => x.elemName == currentElemSelected.elemName).ToArray()[0];       
+        ConstructElemController elem = constructElemsPrefabs.Where<ConstructElemController>(x => x.elemName == currentElemSelected.elemName).ToArray()[0];
         elem.count--;
         currentElemSelected.PriceUpgrade(elem.count);
         scoreCounter += elem.totalPrice;
 
         Destroy(currentElemSelected.gameObject);
         currentGridElemSelected.installedObject = null;
-        
-        currentGridElemSelected.ChangeColor(GrideController.instance.baseColor);        
+
+        currentGridElemSelected.ChangeColor(GrideController.instance.baseColor);
         SwitchElemSelectingMode(false);
     }
 
@@ -485,7 +489,7 @@ public class GameManager : MonoBehaviour
         int newGridSize = GrideController.instance.GridSize + 1;
         GrideController.instance.DestroyGrid();
         GrideController.instance.CreateGridWithParams(newGridSize);
- 
+
         //need to change some score level multiplyer(Maybe. It's just an first idea)
         gridLevel++;
 
@@ -496,22 +500,20 @@ public class GameManager : MonoBehaviour
         scoreCounter = startScore * Mathf.Pow(multiplier, gridLevel - 1);
 
         premMoney += 15;
-        premMoneyText.text = premMoney.ToString(); 
+        premMoneyText.text = premMoney.ToString();
 
-        for(int i = 0;  i < constructElemsParamsKeepers.Length; i++)
+        for (int i = 0; i < constructElemsParamsKeepers.Length; i++)
         {
             constructElemsParamsKeepers[i].PriceUpgrade(0);
         }
 
         UpdateConstructElemsUI(true);
-
-        
     }
 
     //for loading grid
     public void UpgradeGrid(int newLevel)
     {
-        if(newLevel > 1)
+        if (newLevel > 1)
         {
             int newGridSize = GrideController.instance.GridSize + newLevel - 1;
             GrideController.instance.DestroyGrid();
@@ -522,9 +524,9 @@ public class GameManager : MonoBehaviour
 
             scoreToUpgradeGridTotal = scoreToUpgradeGridBasic * Mathf.Pow(multiplier, gridLevel);
             UpgradeGridSet();
-            premMoneyText.text = premMoney.ToString();
+            premMoneyText.text = premMoney.ToString() + "G";
         }
-        
+
 
         /*income = 0;
         scoreCounter = startScore * Mathf.Pow(multiplier, gridLevel - 1);
@@ -539,13 +541,13 @@ public class GameManager : MonoBehaviour
             upgradeGridButton.interactable = false;
             upgradeGridButton.gameObject.SetActive(false);
         }
-            
+
         else
         {
             upgradeGridButton.interactable = true;
             upgradeGridButton.gameObject.SetActive(true);
         }
-            
+
 
         upgradeGridSlider.value = scoreCounter;
         upgradeGridText.text = scoreCounter + "/" + upgradeGridSlider.maxValue;
@@ -570,6 +572,7 @@ public class GameManager : MonoBehaviour
         if (boost == 3)
             premMoney -= 42;
         speed = boost;
+        premMoneyText.text = premMoney.ToString() + "G";
 
         boosterTimeLeft = new TimeSpan(0, 5, 0);
         boosterTimer = new Timer();
@@ -584,6 +587,7 @@ public class GameManager : MonoBehaviour
     public void BuyBooster(int boost, TimeSpan leftFromLastGame)
     {
         speed = boost;
+        premMoneyText.text = premMoney.ToString() + "G";
 
         boosterTimeLeft = new TimeSpan(leftFromLastGame.Ticks);
         boosterTimer = new Timer();
@@ -608,28 +612,29 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator BoosterCoroutine()
-    {   while(true)
+    {
+        while (true)
         {
-            
+
             yield return new WaitForSeconds(1);
             boosterTimeLeft -= new TimeSpan(0, 0, 1);
-            boosterTime.text = "x" + speed + " " + boosterTimeLeft.TotalSeconds.ToString();
+            boosterTime.text = "x" + speed + " " + string.Format("{0:0}", boosterTimeLeft.TotalSeconds);
             //Debug.Log(boosterTimeLeft.TotalSeconds);
         }
     }
 
     public void CheckCoroutine()
     {
-        if(speed > 1)
+        if (speed > 1)
         {
             boosterTime.gameObject.SetActive(true);
             StartCoroutine("BoosterCoroutine");
-        }      
+        }
     }
 
     public void ActivateBoosterButtons()
     {
-        if(speed == 1)
+        if (speed == 1)
         {
             if (premMoney < 13)
                 booster2xButton.interactable = false;
@@ -646,7 +651,7 @@ public class GameManager : MonoBehaviour
             booster2xButton.interactable = false;
             booster3xButton.interactable = false;
         }
-        
+
     }
 
     public void SwitchSettingsMode(bool state)
@@ -667,7 +672,7 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log(value.ToString());
         audioSource.volume = value;
-        if(isLoading)
+        if (isLoading)
             soundSlider.value = value;
         //userParams.soundVolume = value;
     }
@@ -683,9 +688,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void setUser() 
+    public void setUser()
     {
-        
+
     }
 
     /*private IEnumerator SendRequest() 

@@ -7,7 +7,7 @@ public class ConstructElemUIController : MonoBehaviour
 {
     public int elemIndex;
 
-    public Image image;
+    public Sprite image;
     public TMPro.TextMeshProUGUI elemName;
     public TMPro.TextMeshProUGUI price;
 

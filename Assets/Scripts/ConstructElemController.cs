@@ -9,7 +9,7 @@ public class ConstructElemController : MonoBehaviour
     private string userParamsPref = "STroiKaGame_UserParams";
 
     public string elemName;
-    public Image elemImage;
+    public Sprite elemImage;
     public int count;
 
     public float price;

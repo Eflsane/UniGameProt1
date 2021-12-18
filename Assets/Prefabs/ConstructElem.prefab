@@ -64,7 +64,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $10
+  m_text: $ 10
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a1a4694f172b1943886021894f30521, type: 2}
   m_sharedMaterial: {fileID: 1805701141415723727, guid: 6a1a4694f172b1943886021894f30521,
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.42
+  m_fontSize: 118.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -174,7 +174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5055, y: 0.38300002}
   m_AnchorMax: {x: 0.75425005, y: 0.63175}
-  m_AnchoredPosition: {x: -0.45999908, y: -12.22}
+  m_AnchoredPosition: {x: -0.45999146, y: -12.220001}
   m_SizeDelta: {x: 0.7413025, y: 24.881653}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1260711681195239856
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   elemIndex: 0
-  image: {fileID: 1260711681881397712}
+  image: {fileID: 0}
   elemName: {fileID: 1260711681798050224}
   price: {fileID: 1260711681008311432}
 --- !u!114 &-7821311217290523192
@@ -422,7 +422,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50.55
+  m_fontSize: 53.4
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.009433985, g: 0.009433985, b: 0.009433985, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -574,8 +574,8 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: 69.23
   m_MinHeight: 54.8
-  m_PreferredWidth: -1
-  m_PreferredHeight: -1
+  m_PreferredWidth: 69.23
+  m_PreferredHeight: 69.23
   m_FlexibleWidth: 1
   m_FlexibleHeight: 1
   m_LayoutPriority: 1
