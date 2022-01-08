@@ -547,17 +547,19 @@ public class GameManager : MonoBehaviour
         {
             upgradeGridButton.interactable = false;
             upgradeGridButton.gameObject.SetActive(false);
+            upgradeGridSlider.gameObject.SetActive(true);
         }
 
         else
         {
             upgradeGridButton.interactable = true;
             upgradeGridButton.gameObject.SetActive(true);
+            upgradeGridSlider.gameObject.SetActive(false);
         }
 
 
         upgradeGridSlider.value = scoreCounter;
-        upgradeGridText.text = scoreCounter + "/" + upgradeGridSlider.maxValue;
+        upgradeGridText.text = string.Format("{0:0.0} / {1:0.0}", scoreCounter, upgradeGridSlider.maxValue);
     }
 
     public void UpgradeGridSet()
@@ -575,9 +577,9 @@ public class GameManager : MonoBehaviour
     public void BuyBooster(int boost)
     {
         if (boost == 2)
-            premMoney -= 13;
+            premMoney -= 10;
         if (boost == 3)
-            premMoney -= 42;
+            premMoney -= 40;
         speed = boost;
 
         premMoneyText.text = premMoney.ToString() + "G";
