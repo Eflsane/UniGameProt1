@@ -181,8 +181,11 @@ public class GameManager : MonoBehaviour
 
 
             UpgradeGrid(userParams.gridLevel);
+
             income = userParams.income;
+
             premMoney = userParams.premMoney;
+            premMoneyText.text = premMoney.ToString() + "G";
 
 
             if (PlayerPrefs.HasKey(elemsSavedPref))
@@ -214,7 +217,7 @@ public class GameManager : MonoBehaviour
             }
 
             speed = userParams.speed;
-            scoreCounter = (float)(userParams.score + userParams.income * userParams.speed * speedBoosterWorkingTimeLeft.TotalSeconds);
+            scoreCounter = (float)(userParams.score + userParams.income * userParams.speed * timeFromLastPlay.TotalSeconds);
             boosterTimeLeft = speedBoosterWorkingTimeLeft;
 
             BuyBooster((int)speed, speedBoosterWorkingTimeLeft - timeFromLastPlay);
@@ -336,7 +339,13 @@ public class GameManager : MonoBehaviour
 
     public void UpdateConstructElemsUI(bool isLoading)
     {
-
+        if(isLoading)
+        {
+            for(int i = 0; i < constructElemsParamsKeepers.Length; i++)
+            {
+                constructElemsParamsKeepers[i].PriceUpgrade(constructElemsParamsKeepers[i].count);
+            }
+        }
         for (int i = 0; i < constructElemsParamsKeepers.Length; i++)
         {
             constructPanelElemContent.GetComponentsInChildren<ConstructElemUIController>()[i].price.text = "$" + constructElemsParamsKeepers[i].totalPrice.ToString();
@@ -454,10 +463,12 @@ public class GameManager : MonoBehaviour
     {
         income -= currentElemSelected.totalIncomeAscending;
 
-        ConstructElemController elem = constructElemsPrefabs.Where<ConstructElemController>(x => x.elemName == currentElemSelected.elemName).ToArray()[0];
+        ConstructElemController elem = constructElemsParamsKeepers.Where<ConstructElemController>(x => x.elemName == currentElemSelected.elemName).ToArray()[0];
         elem.count--;
         currentElemSelected.PriceUpgrade(elem.count);
         scoreCounter += elem.totalPrice;
+        scoreCounterText.text = "$" + string.Format("{0:0.0}", scoreCounter);
+        UpdateConstructElemsUI(false);
 
         Destroy(currentElemSelected.gameObject);
         currentGridElemSelected.installedObject = null;
@@ -496,13 +507,13 @@ public class GameManager : MonoBehaviour
         //need to change some score level multiplyer(Maybe. It's just an first idea)
         gridLevel++;
 
-        scoreToUpgradeGridTotal = scoreToUpgradeGridBasic * Mathf.Pow(multiplier, gridLevel + 1);
+        scoreToUpgradeGridTotal = scoreToUpgradeGridBasic * Mathf.Pow(multiplier, gridLevel - 1);
         UpgradeGridSet();
 
         income = 0;
         scoreCounter = startScore * Mathf.Pow(multiplier, gridLevel - 1);
 
-        premMoney += 15;
+        premMoney += 10;
         premMoneyText.text = premMoney.ToString();
 
         for (int i = 0; i < constructElemsParamsKeepers.Length; i++)
@@ -512,9 +523,6 @@ public class GameManager : MonoBehaviour
 
 
         UpdateConstructElemsUI(true);
-
-        UpdateConstructElemsUI(true); 
-
     }
 
     //for loading grid
@@ -529,7 +537,7 @@ public class GameManager : MonoBehaviour
             //need to change some score level multiplyer(Maybe. It's just an first idea)
             gridLevel = newLevel;
 
-            scoreToUpgradeGridTotal = scoreToUpgradeGridBasic * Mathf.Pow(multiplier, gridLevel);
+            scoreToUpgradeGridTotal = scoreToUpgradeGridBasic * Mathf.Pow(multiplier, gridLevel - 1);
             UpgradeGridSet();
             premMoneyText.text = premMoney.ToString() + "G";
         }
@@ -583,8 +591,6 @@ public class GameManager : MonoBehaviour
         speed = boost;
 
         premMoneyText.text = premMoney.ToString() + "G";
-
-        premMoneyText.text = premMoney.ToString();
 
 
         boosterTimeLeft = new TimeSpan(0, 5, 0);
@@ -653,12 +659,12 @@ public class GameManager : MonoBehaviour
     {
         if (speed == 1)
         {
-            if (premMoney < 13)
+            if (premMoney < 10)
                 booster2xButton.interactable = false;
             else
                 booster2xButton.interactable = true;
 
-            if (premMoney < 42)
+            if (premMoney < 40)
                 booster3xButton.interactable = false;
             else
                 booster3xButton.interactable = true;

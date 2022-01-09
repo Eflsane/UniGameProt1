@@ -993,7 +993,7 @@ MonoBehaviour:
   price: 10
   totalPrice: 0
   multiply: 1.34
-  incomeAscending: 1000
+  incomeAscending: 0.4
   totalIncomeAscending: 0
   upgradePrice: 30
   totalUpgradePrice: 0

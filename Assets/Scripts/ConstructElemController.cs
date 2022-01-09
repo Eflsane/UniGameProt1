@@ -136,12 +136,15 @@ public class ConstructElemController : MonoBehaviour
     public void PriceUpgrade()
     {
         count++;
-        totalPrice = price * Mathf.Pow(multiply * GameManager.instance.gridLevel, count + 1);
+        float newPrice = price * Mathf.Pow(multiply, GameManager.instance.gridLevel - 1);
+        totalPrice = newPrice * Mathf.Pow(multiply, count);
+        //totalPrice = price * Mathf.Pow(multiply * GameManager.instance.gridLevel, count);
     }
 
     public void PriceUpgrade(int newCount)
     {
         count = newCount;
-        totalPrice = price * Mathf.Pow(multiply * GameManager.instance.gridLevel, count + 1);
+        float newPrice = price * Mathf.Pow(multiply, GameManager.instance.gridLevel - 1);
+        totalPrice = newPrice * Mathf.Pow(multiply, count);
     }
 }
